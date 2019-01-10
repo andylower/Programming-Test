@@ -1,0 +1,21 @@
+{
+  "name": "programming-test",
+  "version": "1.0.0",
+  "description": "This is a practical programming test using Node.js.",
+  "main": "index.js",
+  "scripts": {
+    "start": "cross-env PORT=3000 node index.js"
+  },
+  "dependencies": {
+    "csv-parse": "^4.3.0",
+    "csv-parser": "^2.1.0",
+    "express": "^4.16.4",
+    "json2csv": "^4.3.2",
+    "randomstring": "^1.1.5"
+  },
+  "devDependencies": {
+    "cross-env": "^5.2.0"
+  },
+  "author": "Andy Lower",
+  "license": "ISC"
+}
