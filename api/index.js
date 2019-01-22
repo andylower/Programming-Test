@@ -1,11 +1,13 @@
 var express = require('express');
 var app = express();
 
+const csv = require('csv-parser');
+const fs = require('fs');
+
 // get headers from file and pass back
 app.get('/headers', function(req, res) {
   res.header('Access-Control-Allow-Origin', 'http://localhost:3001');
-  const csv = require('csv-parser');
-  const fs = require('fs');
+  
   const results = [];
 
   // read default csv and push rows to results
@@ -42,8 +44,6 @@ app.get('/download', function(req, res) {
 app.get("/generate", function(req, res) {
   res.header('Access-Control-Allow-Origin', 'http://localhost:3001');
 
-  const csv = require('csv-parser')
-  const fs = require('fs')
   const columns = [];
   const { city, pop, remove, zeros } = req.query;
 
@@ -119,6 +119,10 @@ app.get("/generate", function(req, res) {
       var newfile = `${randomstring}.csv`;
 
       fs.writeFile(newfile, csvData, function(err) {
+        if (err) {
+          res.status(500).send({message: err});
+          res.end();
+        }
         // now generate report and send download link
         var simpleStream = fs.createReadStream(newfile)
         .pipe(csv())
